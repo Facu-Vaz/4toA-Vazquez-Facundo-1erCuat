@@ -5,15 +5,20 @@ using UnityEngine;
 public class BallBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject manager;
+
+
     public float initialSpeed;
     public float acelerationRate;
     bool start = false;
     int rotation;
     Rigidbody rb;
+    Manager manage;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        manage = manager.GetComponent<Manager>();
     }
 
     // Update is called once per frame
@@ -46,9 +51,23 @@ public class BallBehaviour : MonoBehaviour
             {
                 rb.velocity += new Vector3(0, add, 0);
             }
-
-
         }
 
     }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.name == "DieWallLeft")
+        {
+            manage.playerTwoScore();
+            Destroy(gameObject);
+        }
+        if (col.gameObject.name == "DieWallRight")
+        {
+            manage.playerOneScore();
+            Destroy(gameObject);
+            
+        }
+    }
+
 }

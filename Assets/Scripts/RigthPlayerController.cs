@@ -7,10 +7,10 @@ public class RigthPlayerController : MonoBehaviour
     // Start is called before the first frame update
     
     public float movSpeed;
-    
+    public bool isBoosted;
     void Start()
     {
-        
+        isBoosted = false;
     }
 
     // Update is called once per frame

@@ -5,10 +5,11 @@ using UnityEngine;
 public class LeftPlayerController : MonoBehaviour
 {
     public float movSpeed;
+    public bool isBoosted;
     // Start is called before the first frame update
     void Start()
     {
-        
+        isBoosted = false;
     }
 
     // Update is called once per frame

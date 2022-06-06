@@ -121,5 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413af5c2315998248a26aa213fe53588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialSpeed: 10
-  acelerationRate: 30
+  manager: {fileID: 7789587240220787318, guid: ba2733855d3e5a848b3403dfb70b0cc7, type: 3}
+  initialSpeed: 5
+  acelerationRate: 0.5
