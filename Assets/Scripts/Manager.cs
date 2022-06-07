@@ -17,7 +17,9 @@ public class Manager : MonoBehaviour
         Instantiate(pongBall, new Vector3(0, 0.5f, 0), transform.rotation);
         playerOnePoints = 0;
         playerTwoPoints = 0;
-}
+        twoScore.text = "0";
+        oneScore.text = "0";
+    }
 
     // Update is called once per frame
     void Update()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class LeftPlayerController : MonoBehaviour
 {
     public float movSpeed;
+    public float rotSpeed;
     public bool isBoosted;
     // Start is called before the first frame update
     void Start()
@@ -17,11 +18,20 @@ public class LeftPlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W) && transform.position.z < 6.75)
         {
-            transform.Translate(0, 0, movSpeed);
+            transform.position += new Vector3 (0, 0, movSpeed);
         }
-        if (Input.GetKey(KeyCode.S) && transform.position.z > -6.75)
+        else if (Input.GetKey(KeyCode.S) && transform.position.z > -6.75)
         {
-            transform.Translate(0, 0, -movSpeed);
+            transform.position += new Vector3(0, 0, -movSpeed);
+        }
+        else if (Input.GetKey(KeyCode.A) && transform.rotation.y > -0.1)
+        {
+            transform.Rotate(0, -rotSpeed, 0);
+            Debug.Log(transform.rotation.y);
+        }
+        else if (Input.GetKey(KeyCode.D) && transform.rotation.y < 0.1)
+        {
+            transform.Rotate(0, rotSpeed, 0);
         }
     }
 }

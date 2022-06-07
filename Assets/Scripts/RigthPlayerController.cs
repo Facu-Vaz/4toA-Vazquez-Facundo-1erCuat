@@ -7,6 +7,7 @@ public class RigthPlayerController : MonoBehaviour
     // Start is called before the first frame update
     
     public float movSpeed;
+    public float rotSpeed;
     public bool isBoosted;
     void Start()
     {
@@ -18,11 +19,20 @@ public class RigthPlayerController : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.UpArrow) && transform.position.z < 6.75)
         {
-            transform.Translate(0, 0, movSpeed);
+            transform.position += new Vector3(0, 0, movSpeed);
         }
-        if (Input.GetKey(KeyCode.DownArrow) && transform.position.z > -6.75)
+        else if (Input.GetKey(KeyCode.DownArrow) && transform.position.z > -6.75)
         {
-            transform.Translate(0, 0, -movSpeed);
+            transform.position += new Vector3(0, 0, -movSpeed);
+        }
+        else if (Input.GetKey(KeyCode.LeftArrow) && transform.rotation.y > -0.1)
+        {
+            transform.Rotate(0, -rotSpeed, 0);
+            Debug.Log(transform.rotation.y);
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) && transform.rotation.y < 0.1)
+        {
+            transform.Rotate(0, rotSpeed, 0);
         }
     }
 }

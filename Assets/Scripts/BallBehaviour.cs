@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject manager;
+    GameObject manager;
 
 
     public float initialSpeed;
@@ -18,6 +18,7 @@ public class BallBehaviour : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        manager = GameObject.FindWithTag("Manage");
         manage = manager.GetComponent<Manager>();
     }
 
