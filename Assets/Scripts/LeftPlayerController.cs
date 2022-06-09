@@ -27,11 +27,20 @@ public class LeftPlayerController : MonoBehaviour
         else if (Input.GetKey(KeyCode.A) && transform.rotation.y > -0.1)
         {
             transform.Rotate(0, -rotSpeed, 0);
-            Debug.Log(transform.rotation.y);
         }
         else if (Input.GetKey(KeyCode.D) && transform.rotation.y < 0.1)
         {
             transform.Rotate(0, rotSpeed, 0);
         }
+    }
+
+    public void PowerUp()
+    {
+        
+    }
+
+    public void PowerDown()
+    {
+        
     }
 }

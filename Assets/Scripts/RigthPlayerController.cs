@@ -35,4 +35,14 @@ public class RigthPlayerController : MonoBehaviour
             transform.Rotate(0, rotSpeed, 0);
         }
     }
+
+    public void PowerUp()
+    {
+        
+    }
+
+    public void PowerDown()
+    {
+        
+    }
 }
