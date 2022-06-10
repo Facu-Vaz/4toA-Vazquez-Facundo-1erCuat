@@ -17,8 +17,8 @@ public class BallBehaviour : MonoBehaviour
     bool lastOneLeft = false;
 
     GameObject manager;
-    public GameObject playerRigth;
-    public GameObject playerLeft;
+    GameObject playerRigth;
+    GameObject playerLeft;
 
     Manager manage;
     RigthPlayerController rigthPlayer;
@@ -27,8 +27,11 @@ public class BallBehaviour : MonoBehaviour
 
     void Start()
     {
+        playerRigth = GameObject.FindWithTag("PlayerR");
+        playerLeft = GameObject.FindWithTag("PlayerL");
+
         rb = GetComponent<Rigidbody>();
-        whenSpawnPower = Random.Range(10.0f, 25.0f);
+        whenSpawnPower = Random.Range(1.0f, 2.0f);
         manager = GameObject.FindWithTag("Manage");
         manage = manager.GetComponent<Manager>();
 
@@ -38,7 +41,7 @@ public class BallBehaviour : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {    
+    {
         if (!start && Input.GetKey(KeyCode.Space))
         {
            start = true;
@@ -72,10 +75,7 @@ public class BallBehaviour : MonoBehaviour
                 hasDonePower = true;
             }
 
-
         }
-        Debug.Log(lastOneLeft);
-
     }
 
     void OnCollisionEnter(Collision col)
@@ -87,12 +87,16 @@ public class BallBehaviour : MonoBehaviour
             Destroy(actualPow);
             leftPlayer.PowerDown();
             rigthPlayer.PowerDown();
+            playerRigth.transform.position = new Vector3(13.5f, 0.5f, 6.25f);
+            playerLeft.transform.position = new Vector3(-13.5f, 0.5f, 6.25f);
         }
         if (col.gameObject.name == "DieWallRight")
         {
             manage.playerOneScore();
             Destroy(gameObject);
             Destroy(actualPow);
+            leftPlayer.PowerDown();
+            rigthPlayer.PowerDown();
         }
 
         if (col.gameObject.name == "PlayerRight")
@@ -102,17 +106,22 @@ public class BallBehaviour : MonoBehaviour
         if (col.gameObject.name == "PlayerLeft")
         {
             lastOneLeft = true;
-        }
+        }  
+    }
 
+    void OnTriggerEnter(Collider col)
+    {
         if (col.gameObject.tag == "Power")
         {
             if (lastOneLeft)
             {
                 leftPlayer.PowerUp();
-            } else
+            }
+            else
             {
                 rigthPlayer.PowerUp();
             }
+
             Destroy(col.gameObject);
         }
     }

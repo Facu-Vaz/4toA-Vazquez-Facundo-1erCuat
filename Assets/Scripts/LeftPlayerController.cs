@@ -24,11 +24,11 @@ public class LeftPlayerController : MonoBehaviour
         {
             transform.position += new Vector3(0, 0, -movSpeed);
         }
-        else if (Input.GetKey(KeyCode.A) && transform.rotation.y > -0.1)
+        else if (Input.GetKey(KeyCode.A) && transform.rotation.y > -0.1 && !isBoosted)
         {
             transform.Rotate(0, -rotSpeed, 0);
         }
-        else if (Input.GetKey(KeyCode.D) && transform.rotation.y < 0.1)
+        else if (Input.GetKey(KeyCode.D) && transform.rotation.y < 0.1 && !isBoosted)
         {
             transform.Rotate(0, rotSpeed, 0);
         }
@@ -36,11 +36,23 @@ public class LeftPlayerController : MonoBehaviour
 
     public void PowerUp()
     {
-        
+        transform.rotation = Quaternion.identity;
+        transform.localScale = new Vector3(0.3f, 1, 3);
+        isBoosted = true;
+        if (transform.position.z < -6.25)
+        {
+            transform.position = new Vector3(-13.5f, 0.5f, -6.25f);
+        }
+        if (transform.position.z > 6.25)
+        {
+            transform.position = new Vector3(-13.5f, 0.5f, 6.25f);
+        }
     }
 
     public void PowerDown()
     {
-        
+        transform.rotation = Quaternion.identity;
+        transform.localScale = new Vector3(0.3f, 1, 2);
+        isBoosted = false;
     }
 }
