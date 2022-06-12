@@ -8,6 +8,7 @@ TagManager:
   - Power
   - PlayerR
   - PlayerL
+  - Ball
   layers:
   - Default
   - TransparentFX

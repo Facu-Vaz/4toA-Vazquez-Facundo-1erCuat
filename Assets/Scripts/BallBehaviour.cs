@@ -7,6 +7,7 @@ public class BallBehaviour : MonoBehaviour
     // Start is called before the first frame update
     public float initialSpeed;
     public float acelerationRate;
+    AudioSource bounce;
     float whenSpawnPower;
     bool start = false;
     int rotation;
@@ -31,12 +32,14 @@ public class BallBehaviour : MonoBehaviour
         playerLeft = GameObject.FindWithTag("PlayerL");
 
         rb = GetComponent<Rigidbody>();
-        whenSpawnPower = Random.Range(1.0f, 2.0f);
+        whenSpawnPower = Random.Range(10.0f, 25.0f);
         manager = GameObject.FindWithTag("Manage");
         manage = manager.GetComponent<Manager>();
 
         rigthPlayer = playerRigth.GetComponent<RigthPlayerController>();
         leftPlayer = playerLeft.GetComponent<LeftPlayerController>();
+
+        bounce = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -87,26 +90,36 @@ public class BallBehaviour : MonoBehaviour
             Destroy(actualPow);
             leftPlayer.PowerDown();
             rigthPlayer.PowerDown();
-            playerRigth.transform.position = new Vector3(13.5f, 0.5f, 6.25f);
-            playerLeft.transform.position = new Vector3(-13.5f, 0.5f, 6.25f);
+
+            playerRigth.transform.position = new Vector3(13.5f, 0.5f, 0);
+            playerLeft.transform.position = new Vector3(-13.5f, 0.5f, 0);
+            playerRigth.transform.rotation = Quaternion.identity;
+            playerLeft.transform.rotation = Quaternion.identity;
         }
-        if (col.gameObject.name == "DieWallRight")
+        else if (col.gameObject.name == "DieWallRight")
         {
             manage.playerOneScore();
             Destroy(gameObject);
             Destroy(actualPow);
             leftPlayer.PowerDown();
             rigthPlayer.PowerDown();
+
+            playerRigth.transform.position = new Vector3(13.5f, 0.5f, 0);
+            playerLeft.transform.position = new Vector3(-13.5f, 0.5f, 0);
+            playerRigth.transform.rotation = Quaternion.identity;
+            playerLeft.transform.rotation = Quaternion.identity;
         }
 
-        if (col.gameObject.name == "PlayerRight")
+        else if (col.gameObject.name == "PlayerRight")
         {
             lastOneLeft = false;
         }
-        if (col.gameObject.name == "PlayerLeft")
+        else if (col.gameObject.name == "PlayerLeft")
         {
             lastOneLeft = true;
-        }  
+        }
+
+        bounce.Play();
     }
 
     void OnTriggerEnter(Collider col)

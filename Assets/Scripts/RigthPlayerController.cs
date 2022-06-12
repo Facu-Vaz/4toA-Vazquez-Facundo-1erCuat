@@ -8,30 +8,53 @@ public class RigthPlayerController : MonoBehaviour
     
     public float movSpeed;
     public float rotSpeed;
-    public bool isBoosted;
+    public bool isBoosted; 
+    
+    public GameObject manager;
+    Manager isDone;
+    AudioSource power;
+    bool done;
+    // Start is called before the first frame update
     void Start()
     {
         isBoosted = false;
+        isDone = manager.GetComponent<Manager>();
+
+        power = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.UpArrow) && transform.position.z < 6.75)
+        if (!isDone.done)
         {
-            transform.position += new Vector3(0, 0, movSpeed);
-        }
-        else if (Input.GetKey(KeyCode.DownArrow) && transform.position.z > -6.75)
-        {
-            transform.position += new Vector3(0, 0, -movSpeed);
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow) && transform.rotation.y > -0.1 && !isBoosted)
-        {
-            transform.Rotate(0, -rotSpeed, 0);
-        }
-        else if (Input.GetKey(KeyCode.RightArrow) && transform.rotation.y < 0.1 && !isBoosted)
-        {
-            transform.Rotate(0, rotSpeed, 0);
+            if (Input.GetKey(KeyCode.UpArrow) && transform.position.z < 6.75 && !isBoosted)
+            {
+                transform.position += new Vector3(0, 0, movSpeed);
+            }
+            else if (Input.GetKey(KeyCode.DownArrow) && transform.position.z > -6.75 && !isBoosted)
+            {
+                transform.position += new Vector3(0, 0, -movSpeed);
+            }
+
+            if (Input.GetKey(KeyCode.LeftArrow) && transform.rotation.y > -0.1 && !isBoosted)
+            {
+                transform.Rotate(0, -rotSpeed, 0);
+            }
+            else if (Input.GetKey(KeyCode.RightArrow) && transform.rotation.y < 0.1 && !isBoosted)
+            {
+                transform.Rotate(0, rotSpeed, 0);
+            }
+
+            if (Input.GetKey(KeyCode.UpArrow) && transform.position.z < 6.25 && isBoosted)
+            {
+                transform.position += new Vector3(0, 0, movSpeed);
+            }
+            else if (Input.GetKey(KeyCode.DownArrow) && transform.position.z > -6.25 && isBoosted)
+            {
+                transform.position += new Vector3(0, 0, -movSpeed);
+            }
         }
     }
 
@@ -48,6 +71,7 @@ public class RigthPlayerController : MonoBehaviour
         {
             transform.position = new Vector3(13.5f, 0.5f, 6.25f);
         }
+        power.Play();
     }
 
     public void PowerDown()
